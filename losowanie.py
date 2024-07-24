@@ -9,19 +9,24 @@ class Lottery:
 def SelectionEvent():
     selection = Lottery()
     while len(selection.selected_numbers) < 6:
-        try:
-            selected_number = int(input("Please select a number from 1 to 49\n"))
-        except:
-            print("Incorrect input. Please enter an integer.")
-        print(selected_number)
-        print(type(selected_number))
-        if selected_number not in selection.available_numbers and selected_number not in selection.selected_numbers:
-            print("Selected number is out of range. Please choose an integer from 1 to 49")
-        elif selected_number in selection.selected_numbers:
-            print("You have already chosen this number. Please type another number.")
-        else:
-            selection.selected_numbers.append(selected_number)
-            selection.available_numbers.remove(selected_number)
+        selected_number = -1
+        while selected_number < 1 or selected_number > 49:
+            try:
+                selected_number = int(input("Please select a number from 1 to 49\n"))
+                if selected_number not in selection.available_numbers and selected_number not in selection.selected_numbers:
+                    print("Selected number is out of range. Please choose an integer from 1 to 49")
+                elif selected_number in selection.selected_numbers:
+                    print("You have already chosen this number. Please type another number.")
+                else:
+                    selection.selected_numbers.append(selected_number)
+                    selection.available_numbers.remove(selected_number)
+            except ValueError:
+                print("Incorrect input. Please enter an integer.")
+            '''DEBUGGING LINES
+            print(selected_number)
+            print(type(selected_number))
+            print(selection.selected_numbers)
+            print(selection.available_numbers)'''
     print("dziala normalnie waldusiu")
 def DrawEvent():
     draw = Lottery()
@@ -40,6 +45,27 @@ def DrawEvent():
 SelectionEvent()
 DrawEvent()
 
+'''def SelectionEvent():
+    selection = Lottery()
+    while len(selection.selected_numbers) < 6:
+        selected_number = -1
+        while selected_number >= 1 or selected_number <= 49:
+            try:
+                selected_number = int(input("Please select a number from 1 to 49\n"))
+            except ValueError:
+                print("Incorrect input. Please enter an integer.")
+        print(selected_number)
+        print(type(selected_number))
+        if selected_number not in selection.available_numbers and selected_number not in selection.selected_numbers:
+            print("Selected number is out of range. Please choose an integer from 1 to 49")
+        elif selected_number in selection.selected_numbers:
+            print("You have already chosen this number. Please type another number.")
+        else:
+            selection.selected_numbers.append(selected_number)
+            selection.available_numbers.remove(selected_number)
+        print(selection.selected_numbers)
+        print(selection.available_numbers)
+    print("dziala normalnie waldusiu")'''
 
 """This is old code containing only draw function, without lottery class and with unnecessary counter "draw_counter"
 def draw():
@@ -64,9 +90,6 @@ def draw():
     drawn_numbers.sort()
     #str(drawn_numbers)
     #print(drawn_numbers)
-    '''print(f"Drawn number is: " + str(drawn_numbers))'''
     print("Drawn numbers are: " + ", ".join(map(str, drawn_numbers)))
 
 draw()"""
-
-
